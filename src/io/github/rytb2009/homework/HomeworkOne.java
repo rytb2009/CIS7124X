@@ -105,12 +105,12 @@ public class HomeworkOne {
 
         //DIAGONAL_CHECK
         if (grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) {
-            return grid[0][0];
+            return grid[1][1];
         }
 
         //REVERSE_DIAGONAL_CHECK
         if (grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]) {
-            return grid[0][0];
+            return grid[1][1];
         }
 
         return DRAW;
