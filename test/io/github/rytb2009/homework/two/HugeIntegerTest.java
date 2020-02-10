@@ -128,4 +128,12 @@ class HugeIntegerTest {
         assertTrue(new HugeInteger("2225553333444444478888").isLessThanOrEqualTo(new HugeInteger("2225553333444444478889")));
         assertTrue(new HugeInteger("2225553333444444478888").isLessThanOrEqualTo(new HugeInteger("2225553333444444478888")));
     }
+
+    @Test
+    void isZero() {
+        assertTrue(new HugeInteger("0").isZero());
+        assertTrue(new HugeInteger("-0").isZero());
+        assertTrue(new HugeInteger("0000000").isZero());
+        assertFalse(new HugeInteger("1231321").isZero());
+    }
 }

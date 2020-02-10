@@ -34,7 +34,7 @@ public class HugeInteger {
     }
 
     public String toString() {
-        if (digits.size() == 1 && digits.get(0) == 0) {
+        if (isZero()) {
             return "0";
         }
         StringBuilder sb = new StringBuilder();
@@ -114,6 +114,10 @@ public class HugeInteger {
         return hi.signNum == 1 ? value * -1 : value;
     }
 
+    public boolean isZero() {
+        return digits.size() == 1 && digits.get(0) == 0;
+    }
+
     public boolean isEqualTo(HugeInteger hi) {
         return hi != null && this.digits.equals(hi.digits) && this.signNum == hi.signNum;
     }
@@ -153,5 +157,4 @@ public class HugeInteger {
     public boolean isLessThanOrEqualTo(HugeInteger hi) {
         return isEqualTo(hi) || isLessThan(hi);
     }
-
 }
