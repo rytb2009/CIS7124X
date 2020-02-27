@@ -117,6 +117,12 @@ public class HomeworkOne {
     }
 
     private static long bin_str_to_int(String binStr) {
-        return Long.parseLong(binStr, 2);
+        long value = 0;
+        for (char c: binStr.toCharArray()) {
+            if (Character.isDigit(c)) {
+                value = Character.getNumericValue(c) + value * 2;
+            }
+        }
+        return value;
     }
 }

@@ -11,11 +11,7 @@ public class ParkingMeter {
     }
 
     public void insertQuarter(int quantity) throws Exception {
-        int payTime = quantity * this.rate;
-        if (payTime > this.maxTime) {
-            throw new Exception("Transaction failed: exceed max parking time.");
-        }
-        this.time = payTime;
+        this.time = Math.min(quantity * this.rate, this.maxTime);
     }
 
     public int getTime() {

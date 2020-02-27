@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.Vector;
 
+// TODO: the digits should be store from first to last
 public class HugeInteger {
     private int signNum; // non-negative (0) or negative (1).
     private Vector<Integer> digits = new Vector<>();
@@ -20,15 +21,18 @@ public class HugeInteger {
         if (s == null || s.trim().length() == 0) {
             return;
         }
+        int pos = 0;
         if (s.startsWith("-")) {
             this.signNum = 1;
-            s = s.substring(1);
+            pos = 1;
         }
         s = s.replaceFirst("^0+(?!$)", ""); // remove leading 0s
-        for(int i = 0; i < s.length(); i++) {
+        for(int i = s.length() - 1; i > pos; i--) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
                 digits.add(Character.getNumericValue(c));
+            } else {
+                throw new RuntimeException("Invalid digit.");
             }
         }
     }
@@ -45,6 +49,42 @@ public class HugeInteger {
             sb.append(String.valueOf(i));
         }
         return sb.toString();
+    }
+
+    private static Vector<Integer> unassignedAdd(Vector<Integer> x, Vector<Integer> y) {
+        Vector<Integer> result = new Vector<>();
+        int xSize = x.size();
+        int ySize = y.size();
+        int carry = 0;
+        for (int i = 0; i < Math.max(xSize, ySize); i++) {
+            int xValue = i >= xSize ? 0 : x.get(i);
+            int yValue = i >= ySize ? 0 : y.get(i);
+            int sum = xValue + yValue + carry;
+            result.add(sum % 10);
+            carry = sum >= 10 ? 1 : 0;
+        }
+        if (carry > 0) {
+            result.add(carry);
+        }
+        return result;
+    }
+
+    private static Vector<Integer> unassignedSubtract(Vector<Integer> x, Vector<Integer> y) {
+        Vector<Integer> result = new Vector<>();
+        int xSize = x.size();
+        int ySize = y.size();
+//        int borrow = 0;
+//        for (int i = 0; i < Math.max(xSize, ySize); i++) {
+//            int xValue = i >= xSize ? 0 : x.get(i);
+//            int yValue = i >= ySize ? 0 : y.get(i);
+//            int sum = xValue + yValue + carry;
+//            result.add(sum % 10);
+//            carry = sum >= 10 ? 1 : 0;
+//        }
+//        if (carry > 0) {
+//            result.add(carry);
+//        }
+        return result;
     }
 
     // if two numbers have the same sign, do addition;
