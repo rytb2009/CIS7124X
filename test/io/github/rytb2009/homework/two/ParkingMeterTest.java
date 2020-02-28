@@ -22,11 +22,7 @@ class ParkingMeterTest {
         int minutesPerQuarter = 2;
         ParkingMeter pm = new ParkingMeter(maxTime , minutesPerQuarter);
         int insertingQuarter = 6;
-        Exception exception = assertThrows(Exception.class, () -> {
-            pm.insertQuarter(insertingQuarter);
-        });
-        String expectedMessage = "Transaction failed: exceed max parking time.";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        pm.insertQuarter(insertingQuarter);
+        assertEquals(10, pm.getTime());
     }
 }

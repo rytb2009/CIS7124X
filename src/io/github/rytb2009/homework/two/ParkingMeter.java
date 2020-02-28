@@ -10,7 +10,7 @@ public class ParkingMeter {
         this.rate = rate;
     }
 
-    public void insertQuarter(int quantity) throws Exception {
+    public void insertQuarter(int quantity) {
         this.time = Math.min(quantity * this.rate, this.maxTime);
     }
 

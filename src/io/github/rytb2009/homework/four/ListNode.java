@@ -27,7 +27,7 @@ public class ListNode<T> {
         ListNode<T> cur = this;
         while (cur != null) {
             Comparable curData = (Comparable) cur.data;
-            if (preData != null && preData.compareTo(curData) == 1) {
+            if (preData != null && preData.compareTo(curData) >= 1) {
                 return false;
             }
             preData = curData;
@@ -36,18 +36,41 @@ public class ListNode<T> {
         return true;
     }
 
-    public ListNode<T> merge(ListNode<T> node) {
-        return null;
+    public <S extends Comparable> ListNode<S> merge(ListNode<S> ln) {
+        if (!(data instanceof Comparable)) {
+            throw new RuntimeException("Node must be Comparable");
+        }
+        ListNode<S> c = (ListNode<S>) this;
+        if (ln == null) {
+            return new ListNode<S>(c.data);
+        }
+        return sortedMerge(c, ln);
+    }
+
+    private static <S extends Comparable> ListNode<S> sortedMerge(ListNode<S> a, ListNode<S> b) {
+        if (b == null) {
+            return a;
+        }
+        if (a == null) {
+            return b;
+        }
+        ListNode<S> result = null;
+        if (a.data.compareTo(b.data) <= 0) {
+            result = new ListNode<>(a.data, sortedMerge(a.next, b));
+        } else {
+            result = new ListNode<>(b.data, sortedMerge(a, b.next));
+        }
+        return result;
     }
 
     public boolean hasCycle() {
-        Set<T> set = new HashSet<>();
+        Set<ListNode<T>> set = new HashSet<>();
         ListNode<T> cur = this;
         while (cur != null) {
-            if (set.contains(cur.data)) {
+            if (set.contains(cur)) {
                 return true;
             }
-            set.add(cur.data);
+            set.add(cur);
             cur = cur.next;
         }
         return false;
