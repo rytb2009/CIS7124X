@@ -41,9 +41,6 @@ public class ListNode<T> {
             throw new RuntimeException("Node must be Comparable");
         }
         ListNode<S> c = (ListNode<S>) this;
-        if (ln == null) {
-            return new ListNode<S>(c.data);
-        }
         return sortedMerge(c, ln);
     }
 
