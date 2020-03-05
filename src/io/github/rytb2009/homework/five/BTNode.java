@@ -101,7 +101,7 @@ public class BTNode<T> {
         return findMaxPathSumHelper(node, 0);
     }
     
-    private static int helper(BTNode<Integer> node, int result) {
+    private static int findMaxPathSumHelper(BTNode<Integer> node, int result) {
 		if (node == null) {
 			return result;
 		}
