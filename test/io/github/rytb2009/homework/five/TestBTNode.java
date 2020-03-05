@@ -6,8 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBTNode {
 
@@ -65,11 +64,41 @@ public class TestBTNode {
 
     @Test
     public void testIsBST() {
+        BTNode<Integer> node1 = new BTNode<>(5);
+        BTNode<Integer> node1Left = new BTNode<>(1);
+        node1.setLeft(node1Left);
+        BTNode<Integer> node1Right = new BTNode<>(6);
+        node1.setRight(node1Right);
+        BTNode<Integer> node1RightLeft = new BTNode<>(4);
+        node1Right.setLeft(node1RightLeft);
+        BTNode<Integer> node1RightRight = new BTNode<>(7);
+        node1Right.setRight(node1RightRight);
+        assertFalse(BTNode.isBST(node1));
 
+        BTNode<Integer> node2 = new BTNode<>(20);
+        BTNode<Integer> node2Left = new BTNode<>(10);
+        node2.setLeft(node2Left);
+        BTNode<Integer> node2LeftLeft = new BTNode<>(5);
+        node2Left.setLeft(node2LeftLeft);
+        BTNode<Integer> node2LeftRight = new BTNode<>(11);
+        node2Left.setRight(node2LeftRight);
+        BTNode<Integer> node2Right = new BTNode<>(25);
+        node2.setRight(node2Right);
+        assertTrue(BTNode.isBST(node2));
     }
 
     @Test
     public void testInsert() {
-
+        BTNode<Integer> node = new BTNode<>(20);
+        BTNode.insert(node, 10);
+        assertEquals(10, node.left.getData());
+        BTNode.insert(node, 5);
+        assertEquals(5, node.left.left.getData());
+        BTNode.insert(node, 6);
+        assertEquals(6, node.left.left.right.getData());
+        BTNode.insert(node, 22);
+        assertEquals(22, node.right.getData());
+        BTNode.insert(node, 11);
+        assertEquals(11, node.left.right.getData());
     }
 }

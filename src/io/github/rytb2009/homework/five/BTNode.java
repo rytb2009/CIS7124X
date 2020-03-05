@@ -101,12 +101,33 @@ public class BTNode<T> {
         return 0;
     }
 
-    public static boolean isBST(BTNode<? extends Comparable> root) {
-        return false;
+    public static <T extends Comparable> boolean isBST(BTNode<T> node) {
+        return isBSTHelper(node, null, null);
     }
 
-    public static <T extends Comparable>  BTNode<T> insert(BTNode<T> root, T value) {
+    private static <T extends Comparable> boolean isBSTHelper(BTNode<T> node, T maximum, T minimum) {
+        if (node == null) {
+            return true;
+        }
+        T data = node.data;
+        boolean leftOK = node.getLeft() == null || node.getLeft().getData() == null
+                || data.compareTo(node.getLeft().getData()) == 1;
+        leftOK = leftOK && (maximum == null || data.compareTo(maximum) == -1);
+        boolean rightOK = node.getRight() == null || node.getRight().getData() == null
+                || data.compareTo(node.getRight().getData()) == -1;
+        rightOK = rightOK && (minimum == null || data.compareTo(minimum) == 1);
+        return leftOK && rightOK && isBSTHelper(node.left, data, minimum) && isBSTHelper(node.right, maximum, data);
+    }
 
-        return root;
+    public static <T extends Comparable>  BTNode<T> insert(BTNode<T> node, T value) {
+        if (node == null) {
+            return new BTNode<T>(value);
+        }
+        if (value.compareTo(node.getData()) == 1) {
+            node.setRight(insert(node.getRight(), value));
+        } else if (value.compareTo(node.getData()) == -1) {
+            node.setLeft(insert(node.getLeft(), value));
+        }
+        return node;
     }
 }

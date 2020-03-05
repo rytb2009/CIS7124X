@@ -73,6 +73,7 @@ public class ListNode<T> {
         return false;
     }
 
+    // Could use Mark and Sweep method adding additional information during traversal
     public void removeDuplicate() {
         Set<T> set = new HashSet<>();
         ListNode<T> pre = null;
