@@ -98,8 +98,16 @@ public class BTNode<T> {
     }
 
     public static int findMaxPathSum(BTNode<Integer> node) {
-        return 0;
+        return findMaxPathSumHelper(node, 0);
     }
+    
+    private static int helper(BTNode<Integer> node, int result) {
+		if (node == null) {
+			return result;
+		}
+		result += node.value;
+		return Math.max(helper(node.left, result), helper(node.right, result));
+	}
 
     public static <T extends Comparable> boolean isBST(BTNode<T> node) {
         return isBSTHelper(node, null, null);
