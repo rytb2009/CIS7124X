@@ -118,13 +118,9 @@ public class BTNode<T> {
             return true;
         }
         T data = node.data;
-        boolean leftOK = node.getLeft() == null || node.getLeft().getData() == null
-                || data.compareTo(node.getLeft().getData()) == 1;
-        leftOK = leftOK && (maximum == null || data.compareTo(maximum) == -1);
-        boolean rightOK = node.getRight() == null || node.getRight().getData() == null
-                || data.compareTo(node.getRight().getData()) == -1;
-        rightOK = rightOK && (minimum == null || data.compareTo(minimum) == 1);
-        return leftOK && rightOK && isBSTHelper(node.left, data, minimum) && isBSTHelper(node.right, maximum, data);
+        boolean leftOK = maximum == null || data.compareTo(maximum) == -1;
+        boolean rightOK = minimum == null || data.compareTo(minimum) == 1;
+        return leftOK && rightOK && isBSTHelper(node.left, node.data, minimum) && isBSTHelper(node.right, maximum, data);
     }
 
     public static <T> boolean isExist(BTNode<T> node, T value) {
