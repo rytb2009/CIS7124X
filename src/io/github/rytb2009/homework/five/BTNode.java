@@ -105,8 +105,8 @@ public class BTNode<T> {
 		if (node == null) {
 			return result;
 		}
-		result += node.value;
-		return Math.max(helper(node.left, result), helper(node.right, result));
+		result += node.data;
+		return Math.max(findMaxPathSumHelper(node.left, result), findMaxPathSumHelper(node.right, result));
 	}
 
     public static <T extends Comparable> boolean isBST(BTNode<T> node) {
@@ -125,6 +125,16 @@ public class BTNode<T> {
                 || data.compareTo(node.getRight().getData()) == -1;
         rightOK = rightOK && (minimum == null || data.compareTo(minimum) == 1);
         return leftOK && rightOK && isBSTHelper(node.left, data, minimum) && isBSTHelper(node.right, maximum, data);
+    }
+
+    public static <T> boolean isExist(BTNode<T> node, T value) {
+        if (node == null) {
+            return false;
+        }
+        if (node.data.equals(value)) {
+            return true;
+        }
+        return isExist(node.right, value) || isExist(node.left, value);
     }
 
     public static <T extends Comparable>  BTNode<T> insert(BTNode<T> node, T value) {

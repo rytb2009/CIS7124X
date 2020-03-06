@@ -2,7 +2,6 @@ package io.github.rytb2009.homework.five;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +84,35 @@ public class TestBTNode {
         BTNode<Integer> node2Right = new BTNode<>(25);
         node2.setRight(node2Right);
         assertTrue(BTNode.isBST(node2));
+    }
+
+    @Test
+    public void testFindMaxPathSum() {
+        BTNode<Integer> node = new BTNode<>(5);
+        BTNode<Integer> node1Left = new BTNode<>(1);
+        node.setLeft(node1Left);
+        BTNode<Integer> node1Right = new BTNode<>(-6);
+        node.setRight(node1Right);
+        BTNode<Integer> node1RightLeft = new BTNode<>(-4);
+        node1Right.setLeft(node1RightLeft);
+        BTNode<Integer> node1RightRight = new BTNode<>(8);
+        node1Right.setRight(node1RightRight);
+        assertEquals(7, BTNode.findMaxPathSum(node));
+    }
+
+    @Test
+    public void testIsExist() {
+        BTNode<Integer> node = new BTNode<>(5);
+        BTNode<Integer> node1Left = new BTNode<>(1);
+        node.setLeft(node1Left);
+        BTNode<Integer> node1Right = new BTNode<>(-6);
+        node.setRight(node1Right);
+        BTNode<Integer> node1RightLeft = new BTNode<>(-4);
+        node1Right.setLeft(node1RightLeft);
+        BTNode<Integer> node1RightRight = new BTNode<>(8);
+        node1Right.setRight(node1RightRight);
+        assertFalse(BTNode.isExist(node,10));
+        assertTrue(BTNode.isExist(node,8));
     }
 
     @Test
