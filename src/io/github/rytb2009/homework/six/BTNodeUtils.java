@@ -149,17 +149,17 @@ public class BTNodeUtils {
                     dq.push(c);
                     continue;
                 case CLOSE_BRACKET:
-                     if (OPEN_BRACKET != dq.pop()) {
-                         return false;
-                     }
+                    if (dq.isEmpty() || OPEN_BRACKET != dq.pop()) {
+                        return false;
+                    }
                     continue;
                 case CLOSE_SQR_BRACKET:
-                    if (OPEN_SQR_BRACKET != dq.pop()) {
+                    if (dq.isEmpty() || OPEN_SQR_BRACKET != dq.pop()) {
                         return false;
                     }
                     continue;
                 case CLOSE_CURLY_BRACKET:
-                    if (OPEN_CURLY_BRACKET != dq.pop()) {
+                    if (dq.isEmpty() || OPEN_CURLY_BRACKET != dq.pop()) {
                         return false;
                     }
                     continue;
@@ -167,6 +167,6 @@ public class BTNodeUtils {
                     break;
             }
         }
-        return true;
+        return dq.isEmpty();
     }
 }
