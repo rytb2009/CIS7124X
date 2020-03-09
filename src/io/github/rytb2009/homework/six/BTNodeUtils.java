@@ -2,10 +2,7 @@ package io.github.rytb2009.homework.six;
 
 import io.github.rytb2009.homework.five.BTNode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BTNodeUtils {
 
@@ -20,18 +17,54 @@ public class BTNodeUtils {
     }
 
     public static <T> List<T> preorder(BTNode<T> root) {
-        Deque<BTNode<T>> dq = new ArrayDeque<>();
-        dq.push(root);
+        Stack<BTNode<T>> stack = new Stack<>();
+        stack.push(root);
         List<T> list = new LinkedList<>();
-        while (!dq.isEmpty()) {
-            BTNode<T> last = dq.pop();
+        while (!stack.isEmpty()) {
+            BTNode<T> last = stack.pop();
             list.add((last.getData()));
             if (last.getRight() != null) {
-                dq.push(last.getRight());
+                stack.push(last.getRight());
             }
             if (last.getLeft() != null) {
-                dq.push(last.getLeft());
+                stack.push(last.getLeft());
             }
+        }
+        return list;
+    }
+
+    public static <T> List<T> inorder(BTNode<T> root) {
+        Stack<BTNode<T>> stack = new Stack<>();
+        BTNode<T> cur = root;
+        List<T> list = new LinkedList<>();
+        while (cur != null || !stack.isEmpty()) {
+           while (cur != null) {
+               stack.push(cur);
+               cur = cur.getLeft();
+           }
+           cur = stack.pop();
+           list.add(cur.getData());
+           cur = cur.getRight();
+        }
+        return list;
+    }
+
+    public static <T> List<T> postorder(BTNode<T> root) {
+        Stack<BTNode<T>> stack1 = new Stack<>();
+        Stack<BTNode<T>> stack2 = new Stack<>();
+        stack1.push(root);
+        List<T> list = new LinkedList<>();
+        while (!stack1.isEmpty()) {
+            BTNode<T> cur = stack1.pop();
+            stack2.push(cur);
+            if (cur.getLeft() != null)
+                stack1.push(cur.getLeft());
+            if (cur.getRight() != null)
+                stack1.push(cur.getRight());
+        }
+        while (!stack2.isEmpty()) {
+            BTNode<T> cur = stack2.pop();
+            list.add(cur.getData());
         }
         return list;
     }

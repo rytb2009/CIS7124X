@@ -25,7 +25,6 @@ class TestBTNodeUtils {
         assertEquals(5, BTNodeUtils.leftMost(node1));
     }
 
-
     @Test
     void preorder() {
         BTNode<Integer> node1 = new BTNode<>(20);
@@ -40,6 +39,40 @@ class TestBTNodeUtils {
         List<Integer> preorderList = BTNodeUtils.preorder(node1);
         assertEquals(preorderList, new LinkedList<Integer>(){
             { add(20);add(10);add(5);add(6);add(3); }
+        });
+    }
+
+    @Test
+    void inorder() {
+        BTNode<Integer> node1 = new BTNode<>(20);
+        BTNode<Integer> node1Left = new BTNode<>(10);
+        node1.setLeft(node1Left);
+        BTNode<Integer> node1LeftLeft = new BTNode<>(5);
+        node1Left.setLeft(node1LeftLeft);
+        BTNode<Integer> node1LeftRight = new BTNode<>(6);
+        node1Left.setRight(node1LeftRight);
+        BTNode<Integer> node1Right = new BTNode<>(3);
+        node1.setRight(node1Right);
+        List<Integer> inorderList = BTNodeUtils.inorder(node1);
+        assertEquals(inorderList, new LinkedList<Integer>(){
+            { add(5);add(10);add(6);add(20);add(3); }
+        });
+    }
+
+    @Test
+    void postorder() {
+        BTNode<Integer> node1 = new BTNode<>(20);
+        BTNode<Integer> node1Left = new BTNode<>(10);
+        node1.setLeft(node1Left);
+        BTNode<Integer> node1LeftLeft = new BTNode<>(5);
+        node1Left.setLeft(node1LeftLeft);
+        BTNode<Integer> node1LeftRight = new BTNode<>(6);
+        node1Left.setRight(node1LeftRight);
+        BTNode<Integer> node1Right = new BTNode<>(3);
+        node1.setRight(node1Right);
+        List<Integer> postorderList = BTNodeUtils.postorder(node1);
+        assertEquals(postorderList, new LinkedList<Integer>(){
+            { add(5);add(6);add(10);add(3);add(20); }
         });
     }
 
