@@ -17,88 +17,41 @@ public class BTNodeUtils {
     }
 
     public static <T> List<T> preorder(BTNode<T> root) {
-        Stack<BTNode<T>> stack = new Stack<>();
-        stack.push(root);
+        Deque<BTNode<T>> dq = new ArrayDeque<>();
+        dq.push(root);
         List<T> list = new LinkedList<>();
-        while (!stack.isEmpty()) {
-            BTNode<T> last = stack.pop();
+        while (!dq.isEmpty()) {
+            BTNode<T> last = dq.pop();
             list.add((last.getData()));
             if (last.getRight() != null) {
-                stack.push(last.getRight());
+                dq.push(last.getRight());
             }
             if (last.getLeft() != null) {
-                stack.push(last.getLeft());
+                dq.push(last.getLeft());
             }
         }
         return list;
     }
 
-    public static <T> List<T> inorder(BTNode<T> root) {
-        Stack<BTNode<T>> stack = new Stack<>();
-        BTNode<T> cur = root;
-        List<T> list = new LinkedList<>();
-        while (cur != null || !stack.isEmpty()) {
-           while (cur != null) {
-               stack.push(cur);
-               cur = cur.getLeft();
-           }
-           cur = stack.pop();
-           list.add(cur.getData());
-           cur = cur.getRight();
+    public static <T> List<T> level(BTNode<T> root, int n) {
+        List<T> result = new LinkedList<>();
+        if (root == null) {
+            return null;
         }
-        return list;
+        level(root, result, n, 1);
+        return result;
     }
 
-    public static <T> List<T> postorder(BTNode<T> root) {
-        Stack<BTNode<T>> stack1 = new Stack<>();
-        Stack<BTNode<T>> stack2 = new Stack<>();
-        stack1.push(root);
-        List<T> list = new LinkedList<>();
-        while (!stack1.isEmpty()) {
-            BTNode<T> cur = stack1.pop();
-            stack2.push(cur);
-            if (cur.getLeft() != null)
-                stack1.push(cur.getLeft());
-            if (cur.getRight() != null)
-                stack1.push(cur.getRight());
+    public static <T> void level(BTNode<T> root, List<T> result, int targetLevel, int currentLevel) {
+        if (root == null) {
+            return;
         }
-        while (!stack2.isEmpty()) {
-            BTNode<T> cur = stack2.pop();
-            list.add(cur.getData());
+        if (targetLevel == currentLevel) {
+            result.add(root.getData());
+            return;
         }
-        return list;
-    }
-
-    public static <T> List<T> layer(BTNode<T> root, int n) {
-        int visitedNodeCount = 0;
-        int preLevelNodesCount = 1;
-        int levelCounter = 1;
-        Deque<BTNode<T>> dq = new ArrayDeque<>();
-        dq.add(root);
-        List<T> list = null;
-        while (!dq.isEmpty()) {
-            BTNode<T> last = dq.remove();
-            if (list != null) list.add(last.getData());
-            if (last.getLeft() != null) {
-                dq.add(last.getLeft());
-                visitedNodeCount++;
-            }
-            if (last.getRight() != null) {
-                dq.add(last.getRight());
-                visitedNodeCount++;
-            }
-            preLevelNodesCount--;
-            if (preLevelNodesCount == 0) {
-                levelCounter++;
-                if (list != null) {
-                    break;
-                } else if (levelCounter == n) {
-                    list = new LinkedList<>();
-                }
-                preLevelNodesCount = visitedNodeCount;
-            }
-        }
-        return list;
+        level(root.getLeft(), result, targetLevel, currentLevel + 1);
+        level(root.getRight(), result, targetLevel, currentLevel + 1);
     }
 
     public static <T> List<T> bfsOrder(BTNode<T> root) {
@@ -117,6 +70,7 @@ public class BTNodeUtils {
         }
         return list;
     }
+
     public static <T extends Comparable<T>> boolean occurs(BTNode<T> root, T elm) {
         if (elm == null) {
             return false;
@@ -149,17 +103,17 @@ public class BTNodeUtils {
                     dq.push(c);
                     continue;
                 case CLOSE_BRACKET:
-                    if (dq.isEmpty() || OPEN_BRACKET != dq.pop()) {
-                        return false;
-                    }
+                     if (OPEN_BRACKET != dq.pop()) {
+                         return false;
+                     }
                     continue;
                 case CLOSE_SQR_BRACKET:
-                    if (dq.isEmpty() || OPEN_SQR_BRACKET != dq.pop()) {
+                    if (OPEN_SQR_BRACKET != dq.pop()) {
                         return false;
                     }
                     continue;
                 case CLOSE_CURLY_BRACKET:
-                    if (dq.isEmpty() || OPEN_CURLY_BRACKET != dq.pop()) {
+                    if (OPEN_CURLY_BRACKET != dq.pop()) {
                         return false;
                     }
                     continue;
@@ -167,6 +121,6 @@ public class BTNodeUtils {
                     break;
             }
         }
-        return dq.isEmpty();
+        return true;
     }
 }

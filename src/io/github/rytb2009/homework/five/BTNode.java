@@ -2,6 +2,7 @@ package io.github.rytb2009.homework.five;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class BTNode<T> {
     T data;
@@ -143,5 +144,35 @@ public class BTNode<T> {
             node.setLeft(insert(node.getLeft(), value));
         }
         return node;
+    }
+
+    public static <T> int depth(BTNode<T> root) {
+        if (root == null
+            || (root.left == null && root.right == null)) {
+            return -1;
+        }
+        return depthHelper(root);
+    }
+
+    public static <T> int depthHelper(BTNode<T> node) {
+        if (node == null) {
+            return 0;
+        }
+        return Math.max(depthHelper(node.left), depthHelper(node.right)) + 1;
+    }
+
+    public static int eval(BTNode<Character> root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.getLeft() == null && root.getRight() == null) {
+            return Character.getNumericValue(root.data);
+        }
+        switch (root.data) {
+            case '+' : return eval(root.getLeft()) + eval(root.getRight());
+            case '-' : return eval(root.getLeft()) - eval(root.getRight());
+            default:
+                throw new IllegalArgumentException("Invalid operator: " + root.data);
+        }
     }
 }
