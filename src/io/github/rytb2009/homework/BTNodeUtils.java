@@ -1,6 +1,4 @@
-package io.github.rytb2009.homework.six;
-
-import io.github.rytb2009.homework.five.BTNode;
+package io.github.rytb2009.homework;
 
 import java.util.*;
 

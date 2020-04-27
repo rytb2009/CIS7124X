@@ -1,8 +1,7 @@
-package io.github.rytb2009.homework.five;
+package io.github.rytb2009.homework;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 public class BTNode<T> {
     T data;

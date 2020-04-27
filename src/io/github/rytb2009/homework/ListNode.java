@@ -1,4 +1,4 @@
-package io.github.rytb2009.homework.four;
+package io.github.rytb2009.homework;
 
 import java.util.ArrayList;
 import java.util.HashSet;

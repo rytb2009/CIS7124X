@@ -1,4 +1,4 @@
-package io.github.rytb2009.homework.three;
+package io.github.rytb2009.homework;
 
 import java.util.*;
 

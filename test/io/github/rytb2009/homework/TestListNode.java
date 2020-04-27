@@ -1,5 +1,6 @@
-package io.github.rytb2009.homework.four;
+package io.github.rytb2009.homework;
 
+import io.github.rytb2009.homework.ListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

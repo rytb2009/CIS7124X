@@ -1,5 +1,6 @@
-package io.github.rytb2009.homework.five;
+package io.github.rytb2009.homework;
 
+import io.github.rytb2009.homework.BTNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -128,5 +129,47 @@ public class TestBTNode {
         assertEquals(22, node.right.getData());
         BTNode.insert(node, 11);
         assertEquals(11, node.left.right.getData());
+    }
+
+    @Test
+    public void testDepth() {
+        BTNode<Integer> node = new BTNode<>(20);
+        assertEquals(-1, BTNode.depth(node));
+        BTNode.insert(node, 10);
+        BTNode.insert(node, 5);
+        BTNode.insert(node, 6);
+        BTNode.insert(node, 22);
+        BTNode.insert(node, 11);
+        assertEquals(4, BTNode.depth(node));
+    }
+
+
+    @Test
+    public void testEval() {
+        BTNode<Character> node = new BTNode<>('+');
+        BTNode<Character> node1Left = new BTNode<>('-');
+        node.setLeft(node1Left);
+        BTNode<Character> node1LeftLeft = new BTNode<>('4');
+        node1Left.setLeft(node1LeftLeft);
+        BTNode<Character> node1LeftRight = new BTNode<>('5');
+        node1Left.setRight(node1LeftRight);
+        BTNode<Character> node1R = new BTNode<>('+');
+        node.setRight(node1R);
+
+        BTNode<Character> node1RL = new BTNode<>('-');
+        node1R.setLeft(node1RL);
+        BTNode<Character> node1RLL = new BTNode<>('3');
+        node1RL.setLeft(node1RLL);
+        BTNode<Character> node1RLR = new BTNode<>('4');
+        node1RL.setRight(node1RLR);
+
+        BTNode<Character> node1RR = new BTNode<>('+');
+        node1R.setRight(node1RR);
+        BTNode<Character> node1RRL = new BTNode<>('1');
+        node1RR.setLeft(node1RRL);
+        BTNode<Character> node1RRR = new BTNode<>('2');
+        node1RR.setRight(node1RRR);
+
+        assertEquals(1, BTNode.eval(node));
     }
 }
